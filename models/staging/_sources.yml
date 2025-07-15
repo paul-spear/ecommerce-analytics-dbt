@@ -1,0 +1,24 @@
+version: 2
+
+sources:
+  - name: ecommerce_staging
+    description: "Raw e-commerce data in BigQuery"
+    database: analytics-portfolio-465420 # GCP project ID
+    schema: portfolio_staging 
+    
+    tables:
+      - name: customers
+        description: "Customer master data"
+        columns:
+          - name: customer_id
+            tests:
+              - not_null
+              - unique
+              
+      - name: orders
+        description: "Order transactions"
+        columns:
+          - name: order_id
+            tests:
+              - not_null
+              - unique
