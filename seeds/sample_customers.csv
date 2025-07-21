@@ -1,0 +1,11 @@
+customer_id,email,first_name,last_name,phone,city,state,country,created_at
+1,john.doe@email.com,John,Doe,555-0101,New York,NY,USA,2023-01-15 10:30:00
+2,jane.smith@email.com,Jane,Smith,555-0102,Los Angeles,CA,USA,2023-01-20 14:15:00
+3,bob.johnson@email.com,Bob,Johnson,555-0103,Chicago,IL,USA,2023-02-01 09:45:00
+4,alice.brown@email.com,Alice,Brown,555-0104,Houston,TX,USA,2023-02-15 16:20:00
+5,charlie.davis@email.com,Charlie,Davis,555-0105,Phoenix,AZ,USA,2023-03-01 11:10:00
+6,diana.wilson@email.com,Diana,Wilson,555-0106,Philadelphia,PA,USA,2023-03-15 13:25:00
+7,edward.moore@email.com,Edward,Moore,555-0107,San Antonio,TX,USA,2023-04-01 08:30:00
+8,fiona.taylor@email.com,Fiona,Taylor,555-0108,San Diego,CA,USA,2023-04-15 17:45:00
+9,george.anderson@email.com,George,Anderson,555-0109,Dallas,TX,USA,2023-05-01 12:00:00
+10,hannah.thomas@email.com,Hannah,Thomas,555-0110,San Jose,CA,USA,2023-05-15 15:15:00

@@ -34,6 +34,31 @@ models:
 seeds:
   ecommerce_analytics:
     +dataset: ecommerce_seeds
+    sample_customers:
+      +column_types:
+        customer_id: INT64
+        created_at: TIMESTAMP
+    sample_orders:
+      +column_types:
+        order_id: INT64
+        customer_id: INT64
+        order_date: DATE
+        total_amount: FLOAT64
+        shipping_cost: FLOAT64
+        tax_amount: FLOAT64
+    sample_order_items:
+      +column_types:
+        order_item_id: INT64
+        order_id: INT64
+        product_id: INT64
+        quantity: INT64
+        unit_price: FLOAT64
+        total_price: FLOAT64
+    sample_products:
+      +column_types:
+        product_id: INT64
+        price: FLOAT64
+        cost: FLOAT64
 
 # BigQuery-specific configurations
 vars:
