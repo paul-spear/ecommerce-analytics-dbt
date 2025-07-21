@@ -1,0 +1,61 @@
+version: 2
+
+sources:
+  - name: ecommerce_seeds
+    description: "Sample e-commerce data in BigQuery"
+    database: "analytics-portfolio-465420"
+    schema: dbt_portfolio_dev_ecommerce_seeds
+    tables:
+      - name: sample_customers
+        description: "Customer master data"
+        columns:
+          - name: customer_id
+            description: "Unique customer identifier"
+            tests:
+              - not_null
+              - unique
+          - name: email
+            description: "Customer email address"
+            tests:
+              - not_null
+              - unique
+
+      - name: sample_orders
+        description: "Order transaction data"
+        columns:
+          - name: order_id
+            description: "Unique order identifier"
+            tests:
+              - not_null
+              - unique
+          - name: customer_id
+            description: "Foreign key to customers"
+            tests:
+              - not_null
+              - relationships:
+                  to: source('ecommerce_seeds', 'sample_customers')
+                  field: customer_id
+
+      - name: sample_order_items
+        description: "Order line items"
+        columns:
+          - name: order_item_id
+            description: "Unique order item identifier"
+            tests:
+              - not_null
+              - unique
+          - name: order_id
+            description: "Foreign key to orders"
+            tests:
+              - relationships:
+                  to: source('ecommerce_seeds', 'sample_orders')
+                  field: order_id
+
+      - name: sample_products
+        description: "Product catalog"
+        columns:
+          - name: product_id
+            description: "Unique product identifier"
+            tests:
+              - not_null
+              - unique
