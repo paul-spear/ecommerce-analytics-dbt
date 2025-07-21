@@ -1,57 +1,46 @@
-
-# Name your project! Project names should contain only lowercase characters
-# and underscores. A good package name should reflect your organization's
-# name or the intended use of these models
 name: 'ecommerce_analytics'
 version: '1.0.0'
 config-version: 2
 
-# This setting configures which "profile" dbt uses for this project.
-profile: 'ecommerce_analytics'
-
-# These configurations specify where dbt should look for different types of files.
-# The `model-paths` config, for example, states that models in this project can be
-# found in the "models/" directory. You probably won't need to change these!
 model-paths: ["models"]
-analysis-paths: ["analyses"]
+analysis-paths: ["analyses"] 
 test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
 
-target-path: "target"  # directory which will store compiled SQL files
-clean-targets:         # directories to be removed by `dbt clean`
+target-path: "target"
+clean-targets:
   - "target"
   - "dbt_packages"
 
 models:
   ecommerce_analytics:
-    +materialized: table
-    +partition_by:
-      field: created_at
-      data_type: timestamp
-      granularity: day
-    
     staging:
       +materialized: view
-      +dataset: portfolio_staging
+      +dataset: ecommerce_staging
       
     intermediate:
       +materialized: view
-      +dataset: dbt_portfolio_dev
+      +dataset: ecommerce_intermediate
       
     marts:
       +materialized: table
-      +dataset: dbt_portfolio_dev
       core:
-        +dataset: dbt_portfolio_dev
+        +dataset: ecommerce_core
       analytics:
-        +dataset: dbt_portfolio_dev
+        +dataset: ecommerce_analytics
 
+seeds:
+  ecommerce_analytics:
+    +dataset: ecommerce_seeds
+
+# BigQuery-specific configurations
 vars:
-  # Use standard SQL
-  use_legacy_sql: false
+  # Business configuration
+  cohort_periods: 12
+  rfm_quantiles: [0.2, 0.4, 0.6, 0.8]
   
-  # Optimize for BigQuery
-  enable_partitioning: true
-  enable_clustering: true
+  # BigQuery specific
+  start_date: '2023-01-01'
+  end_date: '2024-12-31'
