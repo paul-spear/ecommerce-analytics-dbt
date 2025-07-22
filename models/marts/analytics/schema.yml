@@ -1,0 +1,62 @@
+version: 2
+
+models:
+  - name: customer_segments
+    description: "Customer segmentation analysis based on RFM scoring"
+    columns:
+      - name: customer_segment
+        description: "Customer segment based on RFM analysis"
+        tests:
+          - accepted_values:
+              values: ['Champions', 'Loyal Customers', 'New Customers', 'Potential Loyalists', 'At Risk', 'Cannot Lose Them', 'Hibernating', 'Others']
+      - name: customer_count
+        description: "Number of customers in segment"
+        tests:
+          - not_null
+      - name: total_revenue
+        description: "Total revenue from segment"
+        tests:
+          - not_null
+
+  - name: product_performance
+    description: "Product performance metrics by category and ABC class"
+    columns:
+      - name: category
+        description: "Product category"
+        tests:
+          - not_null
+      - name: abc_class
+        description: "ABC classification based on revenue"
+        tests:
+          - accepted_values:
+              values: ['A', 'B', 'C', 'No Sales']
+
+  - name: cohort_analysis
+    description: "Customer cohort analysis and retention metrics"
+    columns:
+      - name: acquisition_cohort
+        description: "Month when customer was acquired"
+        tests:
+          - not_null
+      - name: retention_rate
+        description: "Percentage of cohort still active"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_between:
+              min_value: 0
+              max_value: 100
+
+  - name: daily_sales_summary
+    description: "Daily sales performance summary"
+    columns:
+      - name: date
+        description: "Sales date"
+        tests:
+          - not_null
+          - unique
+      - name: total_revenue
+        description: "Total revenue for the day"
+        tests:
+          - not_null
+          - dbt_expectations.expect_column_values_to_be_of_type:
+              column_type: float64
