@@ -61,12 +61,19 @@ seeds:
         price: FLOAT64
         cost: FLOAT64
 
-# BigQuery-specific configurations
 vars:
-  # Business configuration
+  # Environment-specific configurations
+  gcp_project_id: "{{ env_var('DBT_GCP_PROJECT_ID', 'my-analytics-project') }}"
+  bigquery_location: "{{ env_var('DBT_BIGQUERY_LOCATION', 'US') }}"
+  
+  # Business rules
   cohort_periods: 12
   rfm_quantiles: [0.2, 0.4, 0.6, 0.8]
   
-  # BigQuery specific
+  # Data range
   start_date: '2023-01-01'
   end_date: '2024-12-31'
+  
+  # BigQuery optimization
+  clustering_fields: ["customer_id", "order_date"]
+  partition_field: "order_date"
