@@ -7,7 +7,7 @@ with customer_orders as (
         o.order_month_year,
         c.acquisition_cohort,
         
-        -- Add order sequence using BigQuery window functions
+        -- Add order sequence using
         row_number() over (
             partition by o.customer_id 
             order by o.order_date
@@ -34,7 +34,7 @@ final as (
         cm.*,
         {{ calculate_rfm_score('cm.days_since_last_order', 'cm.total_orders', 'cm.total_revenue') }},
         
-        -- Calculate customer lifetime value using BigQuery functions
+        -- Calculate customer lifetime value
         case 
             when date_diff(last_order_date, first_order_date, day) > 0
             then round((total_revenue / date_diff(last_order_date, first_order_date, day)) * 365, 2)

@@ -36,7 +36,7 @@ with product_sales as (
 product_rankings as (
     select
         *,
-        -- Calculate rankings using BigQuery window functions
+        -- Calculate rankings
         row_number() over (order by total_revenue desc) as revenue_rank,
         row_number() over (order by total_quantity_sold desc) as quantity_rank,
         row_number() over (order by total_profit desc) as profit_rank,

@@ -25,7 +25,7 @@ cleaned_data as (
             else 0
         end as margin_percentage,
         
-        -- Price categorization using BigQuery CASE
+        -- Price categorization
         case 
             when price < 50 then 'Low'
             when price between 50 and 200 then 'Medium'
